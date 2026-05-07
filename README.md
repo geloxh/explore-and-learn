@@ -75,3 +75,20 @@ npm install jsonwebtoken bcryptjs
 npm install joi
 - **#Dev tools**
 npm install --save-dev nodemon eslint
+
+- **Web (React + Vite)**
+npm create vite@latest . -- --template react
+npm install axios socket.io-client three d3 leaflet zustand
+npm install react-router-dom @react-three/fiber @react-three/drei
+
+- **Desktop (Electron)**
+npm init -y
+npm install electron electron-builder
+npm install --save-dev concurrently wait-on
+
+- **Mobile (Expo)**
+npx create-expo-app . --template blank
+npx expo install expo-notifications expo-location
+npm install @react-navigation/native @react-navigation/bottom-tabs
+npx expo install react-native-screens react-native-safe-area-context
+npm install socket.io-client axios zustand
