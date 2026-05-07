@@ -4,12 +4,14 @@
   "version": "1.0.0",
   "description": "A progressive web, desktop, mobile app that serves as NASA platform.",
   "main": "index.js",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "workspaces": ["apps/*", "packages/*"],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev":          "turbo run dev",
+    "dev:server":   "turbo run dev --filter=server",
+    "dev:web":      "turbo run dev --filter=web",
+    "dev:desktop":  "turbo run dev --filter=desktop",
+    "dev:mobile":   "turbo run dev --filter=mobile",
+    "build":        "turbo run build"
   },
   "repository": {
     "type": "git",
@@ -24,25 +26,6 @@
   },
   "homepage": "https://github.com/geloxh/explore-and-learn#readme",
   "devDependencies": {
-    "eslint": "^10.3.0",
-    "nodemon": "^3.1.14",
     "turbo": "^2.9.9"
-  },
-  "dependencies": {
-    "@prisma/client": "^7.8.0",
-    "bcryptjs": "^3.0.3",
-    "bull": "^4.16.5",
-    "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1",
-    "helmet": "^8.1.0",
-    "ioredis": "^5.10.1",
-    "joi": "^18.2.1",
-    "jsonwebtoken": "^9.0.3",
-    "morgan": "^1.10.1",
-    "node-cache": "^5.1.2",
-    "node-fetch": "^3.3.2",
-    "prisma": "^7.8.0",
-    "socket.io": "^4.8.3"
   }
 }
