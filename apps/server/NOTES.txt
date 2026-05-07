@@ -1,0 +1,12 @@
+# Generate Prisma client + create SQLite DB
+npx prisma migrate dev --name init
+npx prisma generate
+
+npx prisma migrate dev --name init does three things in one command:
+
+Reads schema.prisma file
+Creates the actual SQLite database file (dev.db) on disk
+Creates the tables (User, Favorite, Alert, AlertSub, CacheLog) inside that database
+
+npx prisma generate :
+It reads  schema.prisma and auto-generates the @prisma/client JavaScript code inside node_modules that you actually import in your code

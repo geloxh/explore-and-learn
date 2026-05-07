@@ -9,20 +9,32 @@ Project architecture guideline:
 ![alt text](image.png)
 
 ## Project folder structure (TurboRepo)
-Initial folder structure:
+Initial Full backend structure:
 ```
-nasa-platform/
-├── apps/
-│   ├── web/              ← React + Vite (browser)
-│   ├── desktop/          ← Electron wraps the web app
-│   ├── mobile/           ← React Native + Expo
-│   └── server/           ← Node.js + Express + Socket.io
-├── packages/
-│   ├── api-services/     ← all NASA API calls (shared)
-│   ├── ui-components/    ← shared React components
-│   ├── hooks/            ← shared custom hooks
-│   └── types/            ← shared TypeScript interfaces
-├── turbo.json
+apps/server/
+├── prisma/
+│   └── schema.prisma
+├── src/
+│   ├── index.js           ← app entry point
+│   ├── socket.js          ← Socket.io setup
+│   ├── prisma.js          ← shared Prisma client
+│   ├── routes/
+│   │   ├── asteroids.js
+│   │   ├── events.js
+│   │   ├── mars.js
+│   │   ├── weather.js
+│   │   ├── exoplanets.js
+│   │   └── favorites.js
+│   ├── services/
+│   │   ├── nasaApi.js     ← all NASA fetch calls
+│   │   └── cache.js       ← caching layer
+│   ├── jobs/
+│   │   └── weatherPoller.js ← Bull cron job
+│   └── middleware/
+│       ├── auth.js
+│       ├── errorHandler.js
+│       └── rateLimiter.js
+├── .env
 └── package.json
 ```
 

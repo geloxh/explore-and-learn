@@ -1,13 +1,56 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "sqlite"        
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  email String @unique
+  name String?
+  password String
+  createdAt DateTime @default(now())
+  favorites Favorite[]
+  alerts AlertSub[]
+}
+
+model Favorite {
+  id Int @id @default(autoincrement())
+  userId Int
+  type String 
+  refId String
+  data String
+  note String?
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Alert {
+  id Int @id @default(autoincrement())
+  type String
+  title String
+  description String
+  severity String
+  nasaId String?  @unique
+  occurredAt DateTime
+  createdAt DateTime @default(now())
+  subs AlertSub[]
+}
+
+model AlertSub {
+  id Int @id @default(autoincrement())
+  userId Int
+  alertId Int
+  user User @relation(fields: [userId], references: [id])
+  alert Alert @relation(fields: [alertId], references: [id])
+}
+
+model CacheLog {
+  id Int @id @default(autoincrement())
+  endpoint String @unique
+  data String   
+  fetchedAt DateTime @default(now())
+  expiresAt DateTime
 }
