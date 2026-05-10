@@ -1,34 +1,34 @@
 const router = require('express').Router()
 const prisma = require('../prisma')
 
-// Save a favorite
+// Get user favorites
+router.get('/:userId', async (req, res, next) => {
+  try {
+    const favorites = await prisma.favorite.findMany({
+      where: { userId: parseInt(req.params.userId) }
+    })
+    res.json(favorites)
+  } catch (err) { next(err) }
+})
+
+// Add favorite
 router.post('/', async (req, res, next) => {
   try {
     const { userId, type, refId, data, note } = req.body
-    const fav = await prisma.favorite.create({
-      data: { userId, type, refId, data: JSON.stringify(data), note }
+    const favorite = await prisma.favorite.create({
+      data: { userId, type, refId, data, note }
     })
-    res.status(201).json(fav)
+    res.json(favorite)
   } catch (err) { next(err) }
 })
 
-// Get all favorites for a user
-router.get('/:userId', async (req, res, next) => {
-  try {
-    const favs = await prisma.favorite.findMany({
-      where: { userId: parseInt(req.params.userId) },
-      orderBy: { createdAt: 'desc' }
-    })
-    // Parse JSON data field back to object
-    res.json(favs.map(f => ({ ...f, data: JSON.parse(f.data) })))
-  } catch (err) { next(err) }
-})
-
-// Delete a favorite
+// Delete favorite
 router.delete('/:id', async (req, res, next) => {
   try {
-    await prisma.favorite.delete({ where: { id: parseInt(req.params.id) } })
-    res.json({ deleted: true })
+    await prisma.favorite.delete({
+      where: { id: parseInt(req.params.id) }
+    })
+    res.json({ success: true })
   } catch (err) { next(err) }
 })
 
